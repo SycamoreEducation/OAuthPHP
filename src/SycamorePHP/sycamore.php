@@ -24,7 +24,11 @@
  * @author      Anis Berejeb <anis.berejeb@gmail.com>
  * @version     1.2-dev
  */
+
 namespace OAuth2;
+
+require('lib/IGrantType.php');
+require('lib/AuthorizationCode.php');
 
 class Sycamore
 {
@@ -64,8 +68,8 @@ class Sycamore
     /**
      * HTTP Form content types
      */
-    const HTTP_FORM_CONTENT_TYPE_APPLICATION = 0;
-    const HTTP_FORM_CONTENT_TYPE_MULTIPART = 1;
+    const HTTP_FORM_CONTENT_TYPE_APPLICATION = 1;
+    const HTTP_FORM_CONTENT_TYPE_MULTIPART = 0;
 
     /**
      * Client ID
@@ -94,7 +98,7 @@ class Sycamore
      * @var string
      */
     protected $scope = null;
-    
+
     /**
      * Access Token
      *
@@ -291,7 +295,7 @@ class Sycamore
      * @param array $options An array specifying which options to set and their values
      * @return void
      */
-    public function setCurlOptions($options) 
+    public function setCurlOptions($options)
     {
         $this->curl_options = array_merge($this->curl_options, $options);
     }
@@ -321,7 +325,7 @@ class Sycamore
      * @param int    $form_content_type HTTP form content type to use
      * @return array
      */
-    public function fetch($protected_resource_url, $parameters = array(), $http_method = self::HTTP_METHOD_GET, array $http_headers = array(), $form_content_type = self::HTTP_FORM_CONTENT_TYPE_MULTIPART)
+    public function fetch($protected_resource_url, $parameters = array(), $http_method = self::HTTP_METHOD_GET, array $http_headers = array(), $form_content_type = self::HTTP_FORM_CONTENT_TYPE_APPLICATION)
     {
         $protected_resource_url = "http://dev.sycamoreeducation.com/api/v1" . $protected_resource_url;
 
@@ -401,7 +405,7 @@ class Sycamore
      * @param int    $form_content_type HTTP form content type to use
      * @return array
      */
-    private function executeRequest($url, $parameters = array(), $http_method = self::HTTP_METHOD_GET, array $http_headers = null, $form_content_type = self::HTTP_FORM_CONTENT_TYPE_MULTIPART)
+    private function executeRequest($url, $parameters = array(), $http_method = self::HTTP_METHOD_GET, array $http_headers = null, $form_content_type = self::HTTP_FORM_CONTENT_TYPE_APPLICATION)
     {
         $curl_options = array(
             CURLOPT_RETURNTRANSFER => true,

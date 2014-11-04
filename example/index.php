@@ -1,18 +1,37 @@
 <?php
 
+//require the SycamorePHP library
+require('../src/SycamorePHP/Sycamore.php');
+
+//add your applications ID and secret here
+define("CLIENT_ID", "YOUR_CLIENT_ID_HERE";
+define("CLIENT_SECRET", "YOUR_CLIENT_SECRET_HERE");
+
+//if the user it trying to logout, send POST to logout endpoint and
+//clear the stored access token from the cookie 
 if( (isset($_POST)) && (isset($_POST['logout'])) && (!empty($_POST['logout'])) ){
 
+    //create new instance of the client
+    $client = new OAuth2\Sycamore(CLIENT_ID, CLIENT_SECRET);
+
+    //set the access token for this instance from the token stored in the cookie
+    $client->setAccessToken($_COOKIE['auth_token']);
+
+    //endpoint, params, and then HTTP method
+    $client->fetch("/Logout", array(), "POST");
+
+    //remove access token from the cookie
     setcookie("auth_token", "", time()-3600);
 
 }elseif($_COOKIE['auth_token']){
 
-    require('SycamorePHP/sycamore.php');
-
-    define("CLIENT_ID", 'YOUR_CLIENT_ID_HERE');
-    define("CLIENT_SECRET", 'YOUR_CLINET_SECRET_HERE');
-    
+    //create new instance of the client
     $client = new OAuth2\Sycamore(CLIENT_ID, CLIENT_SECRET);
+
+    //set the access token for this instance from the token stored in the cookie
     $client->setAccessToken($_COOKIE['auth_token']);
+
+    //grab my personal details
     $me = $client->fetch("/Me");
 
 }
@@ -29,16 +48,16 @@ if( (isset($_POST)) && (isset($_POST['logout'])) && (!empty($_POST['logout'])) )
         body {
             padding-top: 50px;
         }
-    
+
         .starter-template {
             padding: 40px 15px;
             text-align: center;
         }
-    
+
         #results {
             text-align: center;
         }
-    
+
         pre {
             margin: 25px;
         }
@@ -89,7 +108,7 @@ if( (isset($_POST)) && (isset($_POST['logout'])) && (!empty($_POST['logout'])) )
         echo "<pre>";
         foreach($me['result'] as $key => $value){
             echo "<span class='keypair'>$key => $value </span>";
-        }        
+        }
         echo "</pre>";
     }else{
         echo "<p>Please log in to see your personal information</p>";
@@ -100,6 +119,3 @@ if( (isset($_POST)) && (isset($_POST['logout'])) && (!empty($_POST['logout'])) )
 
 </body>
 </html>
-
-
-
