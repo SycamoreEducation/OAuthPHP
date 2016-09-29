@@ -327,7 +327,7 @@ class Sycamore
      */
     public function fetch($protected_resource_url, $parameters = array(), $http_method = self::HTTP_METHOD_GET, array $http_headers = array(), $form_content_type = self::HTTP_FORM_CONTENT_TYPE_APPLICATION)
     {
-        $protected_resource_url = "http://dev.sycamoreeducation.com/api/v1" . $protected_resource_url;
+        $protected_resource_url = "http://app.sycamoreschool.com/api/v1" . $protected_resource_url;
 
         if ($this->access_token) {
             switch ($this->access_token_type) {

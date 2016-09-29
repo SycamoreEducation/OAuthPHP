@@ -1,5 +1,7 @@
 # Sycamore School PHP OAuth Library
 
+This library is no longer actively maintained. Please refer to the [official documentation](https://github.com/SycamoreEducation/SycamoreSchoolAPI) for information about the Sycamore API.
+
 You can sign up for a Sycamore Developer account at https://app.sycamoreeducation.com/developer/.
 
 ## Requirements
@@ -49,7 +51,3 @@ Simple usage looks like:
             //throw the user back to the index page
             header("Location: index.php");
     }
-
-## Documentation
-
-Please see http://api.sycamoresupport.com for up-to-date documentation.
